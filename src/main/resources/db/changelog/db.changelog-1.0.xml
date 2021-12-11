@@ -40,6 +40,19 @@
             DROP TABLE transaction;
         </rollback>
     </changeSet>
+    <changeSet id="3" author="Olli">
+        <sql>
+            INSERT INTO course (title, author, category, publish_date)
+            VALUES ('My Book', 'Olli', 'Basics', NOW());
+            INSERT INTO course (title, author, category, publish_date)
+            VALUES ('My Book 2', 'Leni', 'Basics 2', NOW());
+            INSERT INTO course (title, author, category, publish_date)
+            VALUES ('My Book 3', 'Sigi', 'Basics 3', NOW());
+        </sql>
+        <rollback>
+            TRUNCATE TABLE course;
+        </rollback>
+    </changeSet>
 
 
 </databaseChangeLog>
