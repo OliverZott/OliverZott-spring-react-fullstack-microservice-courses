@@ -1,6 +1,8 @@
 # Project Structure
 
-This is a **consumer** service.
+- This is a **consumer** service.
+- We will create connection to other services with **OpenFeign**...
+    - e.g. get user-names with ID-list from user-service
 
 ## Prerequisites
 
