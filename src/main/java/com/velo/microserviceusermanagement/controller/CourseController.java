@@ -4,6 +4,9 @@ import com.velo.microserviceusermanagement.intercomm.UserClient;
 import com.velo.microserviceusermanagement.model.Transaction;
 import com.velo.microserviceusermanagement.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -16,12 +19,32 @@ import java.util.stream.Collectors;
 @RestController
 public class CourseController {
 
-    @Autowired
-    private UserClient userClient;
+    private final UserClient userClient;
+    private final CourseService courseService;
+    // list discoverable services and instances with eureka discovery service
+    private final DiscoveryClient discoveryClient;
+    // to display port number of service-instance and list all instances of user-service
+    private final Environment environment;
 
-    @Autowired
-    private CourseService courseService;
+    @Value("${spring.application.name}")
+    private String serviceId;
 
+    public CourseController(UserClient userClient, CourseService courseService, DiscoveryClient discoveryClient, Environment environment) {
+        this.userClient = userClient;
+        this.courseService = courseService;
+        this.discoveryClient = discoveryClient;
+        this.environment = environment;
+    }
+
+    @GetMapping("/service/port")
+    public String getPort() {
+        return "Hiho, service is working at port " + environment.getProperty("local.server.port");
+    }
+
+    @GetMapping("/service/instances")
+    public ResponseEntity<?> getInstances() {
+        return new ResponseEntity<>(discoveryClient.getInstances(serviceId), HttpStatus.OK);
+    }
 
     @GetMapping("/service/user/{userId}")
     public ResponseEntity<?> findTransactionsOfUser(@PathVariable Long userId) {
