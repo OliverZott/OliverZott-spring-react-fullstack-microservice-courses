@@ -3,7 +3,6 @@ package com.velo.microserviceusermanagement.controller;
 import com.velo.microserviceusermanagement.intercomm.UserClient;
 import com.velo.microserviceusermanagement.model.Transaction;
 import com.velo.microserviceusermanagement.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;

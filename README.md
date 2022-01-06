@@ -1,3 +1,10 @@
+-------------------------------------------------
+# Run / check application
+
+- `http://localhost:8001`
+- `http://localhost:8001/service/instances`
+- `http://localhost:8001/service/all`
+
 # Project Structure
 
 - This is a **consumer** service.
